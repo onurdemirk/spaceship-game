@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starship Game</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/main.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-block">
+        <div>
+          <p id="header">Starship Game</p>
+        </div>
+        <div id="game-screen">
+          <form id="gameForm">
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            class="fname"
+            placeholder="Enter Your Name"
+            minlength="2"
+            maxlength="7"
+            required
+          />
+          <br /><br />
+          <button id="play-game" class="button" type="submit">Play Game!</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="board-section">
+        <!-- Player's Board -->
+        <div class="board-container">
+          <h2 id="fleet-text">Your Fleet</h2>
+          <div class="board" id="player-board"></div>
+        </div>
+
+        <!-- Computer's Board -->
+        <div class="board-container">
+          <h2>Enemy Ships</h2>
+          <div class="board" id="computer-board"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
