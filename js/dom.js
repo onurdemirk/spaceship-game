@@ -15,6 +15,7 @@ import {
   enableBoard,
 } from "./functions.js";
 
+
 export const playerBoard = document.getElementById("player-board");
 export const computerBoard = document.getElementById("computer-board");
 const playerNameH2 = document.getElementById("fleet-text");

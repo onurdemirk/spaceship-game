@@ -1,12 +1,20 @@
+
+import hitSound from '/sounds/hit.mp3';
+import missSound from '/sounds/miss.mp3';
+import errorSound from '/sounds/error.mp3';
+import hal from '/sounds/hal9000.mp3';
+import cantdo from '/sounds/cantdo.mp3';
+import stay from '/sounds/stay.mp3';
+
 export class GameSounds {
   constructor() {
     this.sounds = {
-      hit: new Audio("./sounds/hit.mp3"),
-      miss: new Audio("./sounds/miss.mp3"),
-      error: new Audio("./sounds/error.mp3"),
-      hal: new Audio("./sounds/hal9000.mp3"),
-      cantdo: new Audio("./sounds/cantdo.mp3"),
-      stay: new Audio("./sounds/stay.mp3"),
+      hit: new Audio(hitSound),
+      miss: new Audio(missSound),
+      error: new Audio(errorSound),
+      hal: new Audio(hal),
+      cantdo: new Audio(cantdo),
+      stay: new Audio(stay),
     };
 
     Object.values(this.sounds).forEach((sound) => {

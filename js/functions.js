@@ -30,11 +30,11 @@ export const typeWriter = (elementId, text, speed) =>  {
 }
 
 export let shipsToPlace = [
-  { name: "Mothership", length: 5, img: "/img/Mothership.png" },
-  { name: "Dreadnought", length: 4, img: "/img/Dreadnought.png" },
-  { name: "Interceptor", length: 3, img: "/img/Interceptor.png" },
-  { name: "Phantom", length: 3, img: "/img/Phantom.png" },
-  { name: "Scout", length: 2, img: "/img/Scout.png" },
+  { name: "Mothership", length: 5, img: "img/Mothership.png" },
+  { name: "Dreadnought", length: 4, img: "img/Dreadnought.png" },
+  { name: "Interceptor", length: 3, img: "img/Interceptor.png" },
+  { name: "Phantom", length: 3, img: "img/Phantom.png" },
+  { name: "Scout", length: 2, img: "img/Scout.png" },
 ];
 
   
