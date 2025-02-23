@@ -96,7 +96,7 @@ export let shipsToPlace = [
     explosion.style.background =
       "radial-gradient(circle, #ff6600 0%, #ff0000 100%)";
     explosion.style.opacity = "0";
-    explosion.style.animation = "supernovaFlash 1.5s";
+    explosion.style.animation = "supernovaFlash 3s";
     document.body.appendChild(explosion);
   };
 
@@ -104,7 +104,7 @@ export let shipsToPlace = [
     const boards = document.querySelectorAll(".board");
     boards.forEach((board) => {
       board.style.background = "radial-gradient(circle, #000 20%, #2a0033 80%)";
-      board.style.animation = "blackHolePulse 2s infinite";
+      board.style.animation = "blackHolePulse 4s infinite";
     });
     setTimeout(() => {
       boards.forEach((board) => {
@@ -127,4 +127,5 @@ export let shipsToPlace = [
     });
   };
   
+
   
