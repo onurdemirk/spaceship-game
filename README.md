@@ -1,4 +1,4 @@
-# 🚀 Spaceship Game: HAL9000 Edition  
+# Spaceship Game: HAL9000 Edition  
 
 **Live Demo:** [https://onurdemirk.github.io/spaceship-game/](https://onurdemirk.github.io/spaceship-game/)  
 
@@ -6,7 +6,7 @@ A strategic space-themed Battleship game featuring the iconic HAL 9000 AI. Deplo
 
 ---
 
-## ✨ Features  
+## Features  
 - **HAL 9000 AI Integration**: Real-time feedback and atmospheric interactions  
 - **Dynamic DOM Rendering**: Webpack-optimized game engine with modular components  
 - **Cinematic Space Effects**:   
@@ -18,7 +18,7 @@ A strategic space-themed Battleship game featuring the iconic HAL 9000 AI. Deplo
 
 ---
 
-## 🛠 Tech Stack  
+## Tech Stack  
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript)  
 ![Webpack](https://img.shields.io/badge/Webpack-5-8DD6F9?logo=webpack)  
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5)  
