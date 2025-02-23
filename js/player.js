@@ -68,7 +68,7 @@ export class Player {
           coord.push(letters[letterIndex + i] + randomDigit);
         }
       }
-      const newShip = new Ship("AI", shipName, shipLength, coord);
+      const newShip = new Ship("Computer", shipName, shipLength, coord);
       placed = gameboard.placeShip(newShip, coord);
     }
   }
