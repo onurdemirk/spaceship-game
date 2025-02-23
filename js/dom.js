@@ -3,6 +3,7 @@ import "../styles.css";
 import { Player } from "./player.js";
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
+import { GameSounds } from "./sound.js";
 import {
   createGameBoard,
   typeWriter,
@@ -20,6 +21,10 @@ const playerNameH2 = document.getElementById("fleet-text");
 const playerNameInput = document.getElementById("fname");
 const gameForm = document.getElementById("gameForm");
 const gameScreen = document.getElementById("game-screen");
+
+let gameEnded = false;
+
+const gameSounds = new GameSounds();
 
 createGameBoard(playerBoard);
 createGameBoard(computerBoard);
@@ -50,6 +55,7 @@ const attack = async (e) => {
   );
 
   if (result === false) {
+    gameSounds.play("error");
     await typeWriter("myText", "HAL: Invalid coordinates!", 25);
   }
 
@@ -60,27 +66,36 @@ const attack = async (e) => {
     if (foundShip && foundShip.ship.isSunk()) {
       disableBoard(computerBoard);
 
+      gameSounds.play("hit");
       await typeWriter(
         "myText",
         `HAL: ${foundShip.ship.ship} DESTROYED! Radiation levels critical!`,
-        25
+        20
       );
+      gameSounds.sounds.hal.pause();
     } else {
       disableBoard(computerBoard);
+      gameSounds.play("hit");
+      gameSounds.play("hal");
 
-      await typeWriter("myText", "HAL: Direct hit! Hull breach detected!", 30);
+      await typeWriter("myText", "HAL: Direct hit! Hull breach detected!", 20);
+      gameSounds.sounds.hal.pause();
     }
   } else if (result === "miss") {
+    gameSounds.play("miss");
+
     e.target.classList.add("missed");
     e.target.textContent = "✨";
 
     disableBoard(computerBoard);
+    gameSounds.play("hal");
 
-    await typeWriter("myText", "HAL: Plasma burst missed target!", 30);
+    await typeWriter("myText", "HAL: Plasma burst missed target!", 20);
+    gameSounds.sounds.hal.pause();
   }
 
   gameTurn = "computer";
-  checkWinner();
+  await checkWinner();
   setTimeout(gamePlay, 1000);
 };
 
@@ -94,19 +109,53 @@ const clearHoverforPlay = () => {
   });
 };
 
-const checkWinner = () => {
+const checkWinner = async () => {
+  if (gameEnded) return true;
+
   const computerFailed = computerGameboard.allSink();
   const playerFailed = playerGameboard.allSink();
 
-  if (computerFailed) {
+  const showEndGame = async (message, effect) => {
+    gameEnded = true;
+
+    const existingButtons = gameScreen.querySelectorAll(".again-button");
+    existingButtons.forEach((button) => button.remove());
+
+    const againButton = document.createElement("div");
+    againButton.classList.add("button", "again-button");
+    againButton.innerText = "Again?";
+
+    againButton.addEventListener("click", async () => {
+      gameSounds.play("cantdo");
+      await typeWriter(
+        "myText",
+        "HAL: I'm sorry Dave. I'm afraid I can't do that.",
+        30
+      );
+      setTimeout(() => location.reload(), 4000);
+    });
+
     disableBoard(computerBoard);
-    typeWriter("myText", "HAL: VICTORY ACHIEVED! Sector secured.", 70);
-    showBlackHoleEffect();
+
+    await typeWriter("myText", message, 50);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    effect();
+
+    gameScreen.appendChild(againButton);
+  };
+
+  if (computerFailed) {
+    await showEndGame(
+      "HAL: VICTORY ACHIEVED! Sector secured.",
+      showBlackHoleEffect
+    );
     return true;
   } else if (playerFailed) {
-    disableBoard(computerBoard);
-    typeWriter("myText", "HAL: CRITICAL FAILURE... Life support failing.", 70);
-    showInterstellarExplosion();
+    await showEndGame(
+      "HAL: CRITICAL FAILURE... Life support failing.",
+      showInterstellarExplosion
+    );
     return true;
   }
   return false;
@@ -122,26 +171,34 @@ const computerTurn = async () => {
   cell.style.pointerEvents = "none";
 
   if (result === "hit") {
+    gameSounds.play("hit");
     cell.classList.add("hit");
     cell.textContent = "🔥";
+    gameSounds.play("hal");
     await typeWriter(
       "myText",
       `HAL: INCOMING! ${getShipName(coord)} under fire!`,
-      25
+      20
     );
+    gameSounds.sounds.hal.pause();
   } else {
+    gameSounds.play("miss");
     cell.classList.add("missed");
     cell.textContent = "🌠";
-    await typeWriter("myText", "HAL: Enemy fire missed our position!", 25);
+    gameSounds.play("hal");
+    await typeWriter("myText", "HAL: Enemy fire missed our position!", 20);
+    gameSounds.sounds.hal.pause();
   }
 
-  checkWinner();
+  await checkWinner();
   gameTurn = "player";
   setTimeout(gamePlay, 1000);
 };
 
 const playerTurn = async () => {
-  await typeWriter("myText", "HAL: Your turn Captain!", 50);
+  gameSounds.play("hal");
+  await typeWriter("myText", "HAL: Your turn Captain!", 20);
+  gameSounds.sounds.hal.pause();
   enableBoard(computerBoard);
 };
 
@@ -152,14 +209,16 @@ const getShipName = (coord) => {
   return found ? found.ship.ship : "Unknown ship";
 };
 
-const gamePlay = () => {
-  if (checkWinner()) return;
+const gamePlay = async () => {
+  if (await checkWinner()) return;
 
   if (gameTurn === "player") {
-    playerTurn();
+    await playerTurn();
   } else {
     disableBoard(computerBoard);
-    setTimeout(computerTurn, 1000);
+    setTimeout(async () => {
+      await computerTurn();
+    }, 1000);
     gameTurn = "player";
   }
 };
@@ -194,6 +253,8 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
   ship.style.width = "200px";
   div.appendChild(ship);
 
+  gameSounds.play("hal");
+
   await typeWriter(
     "myText",
     `HAL: Greetings Captain ${pNameInput.value}\n` +
@@ -202,6 +263,8 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
       `[SPACE to rotate alignment]`,
     25
   );
+
+  gameSounds.sounds.hal.pause();
 
   document.addEventListener("keypress", (e) => {
     if (e.key === " ") {
@@ -256,6 +319,7 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
     const letterIndex = letters.indexOf(coord[0]);
 
     const showError = (msg) => {
+      gameSounds.play("error");
       const errorMessage = document.createElement("div");
       errorMessage.innerText = msg;
       errorMessage.classList.add("errorMessage");
@@ -278,11 +342,15 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
         cell.style.pointerEvents = "none";
       });
 
+      gameSounds.play("hal");
+
       await typeWriter(
         "myText",
         shipMessages[nextShip.name].deploy(nextShip.name, letterIndex, digit),
-        30
+        20
       );
+
+      gameSounds.sounds.hal.pause();
 
       playerBoard.querySelectorAll(".cell").forEach((cell) => {
         cell.style.pointerEvents = "auto";
@@ -296,6 +364,8 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
         cell.removeEventListener("click", shipSelection);
       });
 
+      gameSounds.play("hal");
+
       await typeWriter(
         "myText",
         `All vessels operational. 
@@ -305,6 +375,8 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
   INITIATE COMBIT PROTOCOL [FIRE WHEN READY]`,
         25
       );
+
+      gameSounds.sounds.hal.pause();
 
       for (let i = 0; i < shipsToPlace.length; i++) {
         computerPlayer.placeAllShipRandomly(
@@ -335,6 +407,7 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
     if (placementDirection === "horizontal") {
       if (digit + size > 10) {
         const nextShip = shipsToPlace[currentShipIndex];
+        gameSounds.play("error");
         showError(
           shipMessages[nextShip.name].error(
             nextShip.name,
@@ -352,6 +425,7 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
     } else if (placementDirection === "vertical") {
       if (letterIndex + size > 10) {
         const nextShip = shipsToPlace[currentShipIndex];
+        gameSounds.play("error");
         showError(
           shipMessages[nextShip.name].error(nextShip.name, placementDirection)
         );
@@ -395,5 +469,31 @@ gameForm.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!playerNameInput.checkValidity()) return;
 
+  if (!isMusicPlaying) {
+    gameSounds.play("stay");
+    musicControl.querySelector("i").classList.replace("fa-play", "fa-pause");
+    isMusicPlaying = true;
+  }
+
   prepareGame(gameScreen, playerNameInput, playerNameH2);
+});
+
+const musicControl = document.getElementById("musicBtn");
+let isMusicPlaying = false;
+
+musicControl.addEventListener("click", () => {
+  isMusicPlaying = !isMusicPlaying;
+
+  const icon = musicControl.querySelector("i");
+  if (isMusicPlaying) {
+    gameSounds.play("stay");
+    icon.classList.replace("fa-play", "fa-pause");
+  } else {
+    gameSounds.sounds.stay.pause();
+    icon.classList.replace("fa-pause", "fa-play");
+  }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  musicControl.querySelector("i").classList.add("fa-play");
 });
