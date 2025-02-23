@@ -1,3 +1,9 @@
+import MothershipImg from '../img/Mothership.png';
+import DreadnoughtImg from '../img/Dreadnought.png';
+import InterceptorImg from '../img/Interceptor.png';
+import PhantomImg from '../img/Phantom.png';
+import ScoutImg from '../img/Scout.png';
+
 const letters = "ABCDEFGHIJ";
 
 export const createGameBoard = (board) => {
@@ -30,11 +36,11 @@ export const typeWriter = (elementId, text, speed) =>  {
 }
 
 export let shipsToPlace = [
-  { name: "Mothership", length: 5, img: "img/Mothership.png" },
-  { name: "Dreadnought", length: 4, img: "img/Dreadnought.png" },
-  { name: "Interceptor", length: 3, img: "img/Interceptor.png" },
-  { name: "Phantom", length: 3, img: "img/Phantom.png" },
-  { name: "Scout", length: 2, img: "img/Scout.png" },
+  { name: "Mothership", length: 5, img: MothershipImg },
+  { name: "Dreadnought", length: 4, img: DreadnoughtImg },
+  { name: "Interceptor", length: 3, img: InterceptorImg },
+  { name: "Phantom", length: 3, img: PhantomImg },
+  { name: "Scout", length: 2, img: ScoutImg },
 ];
 
   
