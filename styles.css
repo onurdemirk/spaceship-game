@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("./img/bg.jpg");
+  font-family: "Press Start 2P", cursive;
+  color: whitesmoke;
+}
+
+.container {
+  display: flex;
+  gap: 70px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 90px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 37px);
+  grid-template-rows: repeat(10, 37px);
+  gap: 1px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.cell {
+  width: 37px;
+  height: 37px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.cell.activated:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.hover-preview {
+  background-color: rgba(0, 255, 0, 0.3) !important;
+  border: 2px dashed #00ff00 !important;
+}
+
+.attack-preview {
+  background-color: rgba(255, 0, 0, 0.3) !important;
+  border: 2px dashed #ff0000 !important;
+}
+
+.hit {
+  background: rgba(255, 50, 50, 0.3);
+  border: 1px solid #ff5555;
+  animation: pulse 0.5s infinite;
+}
+
+.missed {
+  background: rgba(100, 100, 255, 0.1);
+  border: 1px solid #6666ff;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes supernovaFlash {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes blackHolePulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.board-section {
+  display: flex;
+  gap: 30px;
+  padding-right: 30px;
+}
+
+#header {
+  font-size: 1.5rem;
+}
+
+.left-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: black;
+  background: rgba(0, 0, 0, 0.5);
+  width: 345px;
+  height: 500px;
+  padding: 15px;
+  margin-left: 30px;
+  border-radius: 10px;
+}
+
+.left-block input[type="text"] {
+  width: 310px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.1s ease, border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+.button {
+  background: rgba(0, 123, 255, 0.5);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-family: "Press Start 2P", cursive;
+  width: 310px !important;
+  line-height: 20px;
+}
+
+.button:hover {
+  background: rgba(0, 123, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+  background: rgba(0, 123, 255, 0.7);
+}
+
+.cursor {
+  animation: blink 0.7s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.myText {
+  white-space: pre-line;
+  font-family: 'Courier New', monospace;
+  color: #00ff9d;
+  text-shadow: 0 0 8px #00ffaa80;
+  line-height: 1.4;
+  padding: 20px;
+  background: #000000cc;
+  border: 1px solid #00ffaa30;
+  border-radius: 5px;
+  margin: 15px 0;
+  height:200px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  animation: blink 1s infinite;
+}
+
+.ship-placed {
+  background-color: rgba(0, 255, 0, 0.3) !important;
+  border: 2px dashed #00ff00 !important;
+}
