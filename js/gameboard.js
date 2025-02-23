@@ -35,8 +35,10 @@ export class Gameboard {
     if (exists && !alreadyTargeted) {
       exists.ship.hit();
       this.targetedShots.push(attackCoordinate);
+      return "hit";
     } else if (!alreadyMissed) {
       this.missedShots.push(attackCoordinate);
+      return "miss";
     } else {
       return false;
     }
@@ -84,8 +86,7 @@ export class Gameboard {
 
     const validNeighbors = neighbors.filter((coord) => {
       return (
-        !this.targetedShots.includes(coord) &&
-        !this.missedShots.includes(coord)
+        !this.targetedShots.includes(coord) && !this.missedShots.includes(coord)
       );
     });
 
