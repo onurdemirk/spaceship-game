@@ -6,6 +6,11 @@
     <title>Starship Game</title>
     <link rel="stylesheet" href="/styles.css" />
     <script type="module" src="./js/dom.js"></script>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -16,32 +21,61 @@
         </div>
         <div id="game-screen">
           <form id="gameForm">
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            class="fname"
-            placeholder="Enter Your Name"
-            minlength="2"
-            maxlength="7"
-            required
-          />
-          <br /><br />
-          <button id="play-game" class="button" type="submit">Play Game!</button>
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              class="fname"
+              placeholder="Enter Your Name"
+              minlength="2"
+              maxlength="7"
+              required
+            />
+            <br /><br />
+            <button id="play-game" class="button" type="submit">
+              Play Game!
+            </button>
           </form>
+        </div>
+        <div class="simple-social">
+          <button id="musicBtn" class="icon-btn" data-tooltip="music on/off">
+            <i class="fas fa-play"></i>
+          </button>
+          <a
+            href="https://github.com/onurdemirk/spaceship-game"
+            target="_blank"
+            class="icon-btn"
+            data-tooltip="source code"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+          <a
+            href="https://en.wikipedia.org/wiki/Battleship_(game)"
+            target="_blank"
+            class="icon-btn"
+            data-tooltip="knowledge base"
+          >
+            <i class="fab fa-wikipedia-w"></i>
+          </a>
+          <a
+            href="https://www.theodinproject.com/lessons/node-path-javascript-battleship"
+            target="_blank"
+            class="icon-btn"
+            data-tooltip="odin project, the code is poetry - onur."
+          >
+            <img src="/img/odin-icon.png" alt="Odin" class="odin-icon" />
+          </a>
         </div>
       </div>
 
       <div class="board-section">
-        <!-- Player's Board -->
         <div class="board-container">
-          <h2 id="fleet-text">Your Fleet</h2>
+          <h2 id="fleet-text" class="board-header">Your Fleet</h2>
           <div class="board" id="player-board"></div>
         </div>
 
-        <!-- Computer's Board -->
         <div class="board-container">
-          <h2>Enemy Ships</h2>
+          <h2 class="board-header">Enemy Ships</h2>
           <div class="board" id="computer-board"></div>
         </div>
       </div>
