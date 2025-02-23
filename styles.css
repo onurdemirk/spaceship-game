@@ -67,21 +67,42 @@ body {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes supernovaFlash {
-  0% { opacity: 0; }
-  20% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes blackHolePulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 .board-section {
@@ -163,7 +184,7 @@ button:active {
 
 .myText {
   white-space: pre-line;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   color: #00ff9d;
   text-shadow: 0 0 8px #00ffaa80;
   line-height: 1.4;
@@ -172,7 +193,7 @@ button:active {
   border: 1px solid #00ffaa30;
   border-radius: 5px;
   margin: 15px 0;
-  height:200px;
+  height: 200px;
 }
 
 .errorMessage {
@@ -185,4 +206,69 @@ button:active {
 .ship-placed {
   background-color: rgba(0, 255, 0, 0.3) !important;
   border: 2px dashed #00ff00 !important;
+}
+
+.board-header {
+  font-size: 1rem;
+}
+
+.simple-social {
+  position: fixed;
+  bottom: 35px;
+  left: 140px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  filter: grayscale(100%);
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.icon-btn:hover {
+  color: #999;
+  transform: scale(1.1);
+}
+
+.icon-btn i {
+  font-size: 22px;
+}
+
+.odin-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+.icon-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #ccc;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.5px;
+}
+
+.icon-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
