@@ -87,6 +87,7 @@ export const shipMessages = {
 
 export const showInterstellarExplosion = () => {
   const explosion = document.createElement("div");
+  explosion.style.pointerEvents = "none";
   explosion.style.position = "fixed";
   explosion.style.top = "0";
   explosion.style.left = "0";
