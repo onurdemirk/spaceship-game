@@ -15,7 +15,6 @@ import {
   enableBoard,
 } from "./functions.js";
 
-
 export const playerBoard = document.getElementById("player-board");
 export const computerBoard = document.getElementById("computer-board");
 const playerNameH2 = document.getElementById("fleet-text");
@@ -55,9 +54,19 @@ const attack = async (e) => {
     ship.coordinates.includes(coord)
   );
 
+  if (
+    e.target.classList.contains("hit") ||
+    e.target.classList.contains("missed")
+  ) {
+    gameSounds.play("error");
+    await typeWriter("myText", "HAL: This cell has already been targeted!", 25);
+    return;
+  }
+
   if (result === false) {
     gameSounds.play("error");
     await typeWriter("myText", "HAL: Invalid coordinates!", 25);
+    return;
   }
 
   if (result === "hit") {
@@ -441,7 +450,9 @@ export const prepareGame = async (div, pNameInput, pNameH2) => {
     const placedSuccessfully = playerGameboard.placeShip(newShip, shipArr);
 
     if (!placedSuccessfully) {
-      showError("This position is already occupied. Choose a different spot.");
+      showError(
+        "HAL: This position is already occupied. Choose a different spot!"
+      );
       return;
     }
 
