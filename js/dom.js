@@ -134,6 +134,14 @@ const checkWinner = async () => {
     const againButton = document.createElement("div");
     againButton.classList.add("button", "again-button");
     againButton.innerText = "Again?";
+    gameScreen.appendChild(againButton);
+
+    disableBoard(computerBoard);
+
+    await typeWriter("myText", message, 50);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    effect();
 
     againButton.addEventListener("click", async () => {
       gameSounds.play("cantdo");
@@ -144,15 +152,6 @@ const checkWinner = async () => {
       );
       setTimeout(() => location.reload(), 4000);
     });
-
-    disableBoard(computerBoard);
-
-    await typeWriter("myText", message, 50);
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    effect();
-
-    gameScreen.appendChild(againButton);
   };
 
   if (computerFailed) {
