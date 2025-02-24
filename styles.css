@@ -218,7 +218,7 @@ button:active {
   align-items: center;
   filter: grayscale(100%);
   position: fixed;
-  bottom:30px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -272,4 +272,10 @@ button:active {
 .icon-btn:hover::after {
   opacity: 1;
   visibility: visible;
+}
+
+.again-button {
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto !important;
 }
