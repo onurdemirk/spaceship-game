@@ -213,13 +213,14 @@ button:active {
 }
 
 .simple-social {
-  margin-top: 270px;
-  margin-left: 50px;
-  left: 120px;
   display: flex;
   gap: 15px;
   align-items: center;
   filter: grayscale(100%);
+  position: fixed;
+  bottom:30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .icon-btn {
